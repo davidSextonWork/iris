@@ -1418,7 +1418,7 @@ class CellMethod(iris.util._OrderedHashable):
     #: Additional comments.
     comments = None
 
-    def __init__(self, method, coords=None, intervals=None, comments=None):
+    def __init__(self, method, coord_names=None, intervals=None, comments=None):
         """
         Args:
 
@@ -1427,7 +1427,7 @@ class CellMethod(iris.util._OrderedHashable):
 
         Kwargs:
 
-        * coords:
+        * coord_names:
             A single instance or sequence of :class:`.Coord` instances or
             coordinate names.
 
@@ -1445,16 +1445,16 @@ class CellMethod(iris.util._OrderedHashable):
                             type(method))
 
         _coords = []
-        if coords is None:
+        if coord_names is None:
             pass
-        elif isinstance(coords, Coord):
-            _coords.append(coords.name())
-        elif isinstance(coords, basestring):
-            _coords.append(coords)
+        elif isinstance(coord_names, Coord):
+            _coords.append(coord_names.name())
+        elif isinstance(coord_names, basestring):
+            _coords.append(coord_names)
         else:
             normalise = (lambda coord: coord.name() if
                          isinstance(coord, Coord) else coord)
-            _coords.extend([normalise(coord) for coord in coords])
+            _coords.extend([normalise(coord) for coord in coord_names])
 
         _intervals = []
         if intervals is None:
